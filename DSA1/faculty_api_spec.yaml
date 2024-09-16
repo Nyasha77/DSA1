@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Faculty Management API
+  description: API for managing staff, offices, and courses.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /lecturers:
+    get:
+      summary: Retrieve a list of all lecturers.
+      responses:
+        '200':
+          description: A list of lecturers.
+    post:
+      summary: Add a new lecturer.
+      requestBody:
+        description: Lecturer object that needs to be added.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecturer'
+      responses:
+        '201':
+          description: Lecturer created.
+  /lecturers/{staffNumber}:
+    get:
+      summary: Retrieve a specific lecturer by staff number.
+      parameters:
+        - name: staffNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lecturer details.
+        '404':
+          description: Lecturer not found.
+    put:
+      summary: Update an existing lecturer.
+      parameters:
+        - name: staffNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated lecturer object.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecturer'
+      responses:
+        '200':
+          description: Lecturer updated.
+    delete:
+      summary: Delete a lecturer by staff number.
+      parameters:
+        - name: staffNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Lecturer deleted.
+  /lecturers/course/{courseCode}:
+    get:
+      summary: Retrieve lecturers by course.
+      parameters:
+        - name: courseCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lecturers teaching a specific course.
+  /lecturers/office/{officeNumber}:
+    get:
+      summary: Retrieve lecturers by office number.
+      parameters:
+        - name: officeNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lecturers in a specific office.
+components:
+  schemas:
+    Lecturer:
+      type: object
+      properties:
+        staffNumber:
+          type: string
+        officeNumber:
+          type: string
+        staffName:
+          type: string
+        title:
+          type: string
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+    Course:
+      type: object
+      properties:
+        courseName:
+          type: string
+        courseCode:
+          type: string
+        nqfLevel:
+          type: integer
