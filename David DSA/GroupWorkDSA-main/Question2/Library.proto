@@ -1,0 +1,54 @@
+syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+//package library;
+
+
+service library {
+
+  rpc addBook(addBook) returns (ISBN);
+  rpc createUser(createUser) returns (responce);
+  rpc updateBook(updateBook) returns (bookUpdate);
+  rpc removeBook(removeBook) returns (newList);
+  rpc listAvailableBooks(listAvailableBooks) returns (BookList);
+  rpc locateBook(locateBook) returns (location);
+  rpc borrowBook(borrowBook) returns (ISBN);
+
+}
+
+
+message addBook{
+
+
+  String ISBN =1;
+  String title =2 ;
+  string author_1 =3;
+  string author_2 = 4;
+
+  }
+
+  
+  message createUser{
+    int id= 1;
+    string name =2;
+
+  }
+
+  message updateBook{
+    string contentent = 1;
+
+  }
+
+  message removeBook{
+    string newList= 1;
+  }
+
+message listAvailableBooks{
+    string BookList=1;
+}
+
+message locateBook{
+    string location = 1;
+    
+}
