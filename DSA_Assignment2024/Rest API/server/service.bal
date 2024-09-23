@@ -1,6 +1,9 @@
 import ballerina/http;
 import ballerina/io;
 
+string read;
+string play;
+
 type Programme readonly & record {
     string code;
     string nqfLevel;
